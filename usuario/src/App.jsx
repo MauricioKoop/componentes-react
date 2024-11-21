@@ -1,17 +1,33 @@
-import react from 'react';
-import UserProfile from './userProfile';
+import React, {useState} from 'react';
 
-function App(){
+function App() {
+  const [todos, setTodos] = useState([]);
+  const [task, setTask] = useState('');
+
+  const addTask = () => {
+    if(task) {
+      setTodos([...todos, task]);
+      setTask('');
+    }
+  }
+
   return(
     <div>
-      <h1>Componente para perfil de usuário</h1>
-      <UserProfile 
-        name="Eduardo"
-        email="eduardodevsec@gmail.com"
-        bio="Essa é minha biografia."
+      <h1>Lista de tarefas</h1>
+      <input
+        type="text"
+        value={task}
+        onChange={(e) => {setTask(e.target.value)}}
+        placeholder="Insira a tarefa"
       />
+      <button onClick={addTask}>Add Tarefa</button>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
     </div>
-  )
+  );
 }
 
 export default App;
